@@ -1,0 +1,57 @@
+<h3>Listado de Héroes</h3>
+
+<!-- JAH BLESS, como en mi deletedHero guardo
+el último heroe eliminado de la lista entonces solo cuando
+borre un item es que será verdad mi condición y cuando
+sea verdad se mostrará. Yo podría hacer doble validación
+para un if y else basicamente con el ngif pero el problema
+es que queda el div así se borre sigue en el html. El else
+va después del punto y coma dentro llaves -->
+<div *ngIf="deletedHero; else nothingWasDeleted ">
+  <h3>Héroe borrado <small class="text-danger"> {{deletedHero}} </small></h3>
+</div>
+
+<!-- JAH BLESS, esto es para validar componentes más variables
+
+  JAH BLESS, la siguiente combinación de el else con el #
+  y el ng-template es para validar si no se ha borrado nada pero
+  si ya hay un valor en deletedHero entonces se mostrará el
+  mensaje de que se ha borrado el heroe y entonces
+  no entra al else. Pero si no hay nada entra al else
+  y del else se redigire al ng-template para que
+  renderice el componente con el que tiene #nothingWasDeleted
+  <div *ngIf="deletedHero; else nothingWasDeleted ">
+  <h3>Héroe borrado <small class="text-danger"> {{deletedHero}} </small></h3>
+</div>
+<ng-template #nothingWasDeleted>
+  <h3>No he borrado nada</h3>
+</ng-template>
+
+
+ -->
+<ng-template #nothingWasDeleted>
+  <h3>No he borrado nada</h3>
+</ng-template>
+
+
+<button
+*ngIf="heroNames.length > 0; else noHeroes"
+(click)="removeLastHero()"
+class="btn btn-outline-danger ">
+  Borrar último héroe
+</button>
+
+<ng-template #noHeroes>
+  <button (click)="recoverHero()"
+    class="btn btn-outline-primary"
+  >comencemos de nuevo</button>
+</ng-template>
+
+<ul class="mt-2 list-group">
+  <li
+    *ngFor='let name of heroNames'
+    class="list-group-item">
+    {{name}}
+  </li>
+
+</ul>
